@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -36,26 +37,27 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
 public static final String TAG= "ADE";
-
-
+EditText et1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button btn=findViewById(R.id.btn);
+        et1=findViewById(R.id.et1);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updatetextView();
+              final  String text=et1.getText().toString();
+                updatetextView(text);
             }
         });
     }
-    private void updatetextView(){
-
+    private void updatetextView(String text){
+     String link="https://api.github.com/search/users?q="+text;
         //NetworkTask networkTask=new NetworkTask();
        // networkTask.execute("https://api.github.com/search/users?q=harshit");
         try {
-            makeNetworkcall("https://api.github.com/search/users?q=Anshuman");
+            makeNetworkcall(link);
         } catch (IOException e) {
             e.printStackTrace();
         }
